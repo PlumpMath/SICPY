@@ -46,7 +46,30 @@ class TestChapter1(unittest.TestCase):
 
 	def test_sqrt(self):
 		self.assertEqual(3.00009155413138, sqrt(9))
+	
+	def test_fractorial(self):
+		self.assertEqual(720, fractorial(6))
+
+	def test_fib(self):
+		self.assertEqual(55, fib(10))
+	
+	def test_count_change(self):
+		self.assertEqual(292, count_change(100))
 		
+	def test_expt(self):
+		self.assertEqual(1024, expt(2, 10))
+
+	def test_expt(self):
+		self.assertEqual(1024, fast_expt(2, 10))
+
+	def test_gcd(self):
+		self.assertEqual(2, gcd(206, 40))
+
+	def test_is_prime(self):
+		self.assertEqual(True, is_prime(31))
+		self.assertEqual(False, is_prime(51))
+		self.assertEqual(False, is_prime(1))
+
 if __name__ == '__main__':
 	print(__file__)
 	unittest.main()
