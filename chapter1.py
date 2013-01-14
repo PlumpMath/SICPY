@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import random
+
 '''
 Try for emulating SICP Chapter 1 source.
 '''
@@ -108,13 +110,13 @@ def expt_iter(b, counter, product):
 def expt(b, n):
 	return expt_iter(b, n, 1)
 
-def even(n):
+def is_even(n):
 	return n/2 == 0	
 	
 def fast_expt(b, n):
 	if n == 0:
 		return 1
-	elif even(n):
+	elif is_even(n):
 		return square(fast_expt(b, n/2))
 	else:
 		return b*fast_expt(b, n-1)	
@@ -144,6 +146,34 @@ def is_prime(n):
 		return False
 	else:
 		return smallest_divisor(n) == n
+
+def expmod(base, exp):
+	def _expmod(base, exp, m):
+		if exp == 0: 
+			return 1
+		elif is_even(exp):
+			return square(_expmod(base, exp/2, m)) % m
+		else: 
+			return base * _expmod(base, exp-1, m) % m
+	
+	return _expmod(base, exp, exp)
+
+def fermat_test(n):
+	def try_it(a):
+		return expmod(a, n) == a
+	
+	return try_it(random.randint(1, n-1))
+
+def is_prime_fast(n, times):
+	if n <= 1:
+		return False
+	
+	if times == 0:
+		return True
+	elif fermat_test(n):
+		return is_prime_fast(n, times-1)
+	else:
+		return False
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")

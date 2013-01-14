@@ -70,6 +70,23 @@ class TestChapter1(unittest.TestCase):
 		self.assertEqual(False, is_prime(51))
 		self.assertEqual(False, is_prime(1))
 
+	def test_exmod(self):
+		self.assertEqual(0, expmod(10, 2))
+		self.assertEqual(1, expmod(10, 3))
+	
+	#def test_fermat_test(self):
+	#	self.assertEqual(True, fermat_test(5))
+	#	self.assertEqual(False, fermat_test(10))
+
+	def test_fermat_test(self):
+		times = 100
+		self.assertEqual(True, is_prime_fast(5, times))
+		self.assertEqual(False, is_prime_fast(10, times))
+		self.assertEqual(False, is_prime_fast(1, times))
+		self.assertEqual(False, is_prime_fast(0, times))
+		self.assertEqual(False, is_prime_fast(-1, times))
+		#self.assertEqual(True, is_prime_fast(2**10, times)) #Maximum recursion.
+
 if __name__ == '__main__':
 	print(__file__)
 	unittest.main()
