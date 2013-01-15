@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import random
+import fractions
 
 '''
 Try for emulating SICP Chapter 1 source.
@@ -174,6 +175,41 @@ def is_prime_fast(n, times):
 		return is_prime_fast(n, times-1)
 	else:
 		return False
+
+def sum2(term, a, next, b):
+	if a > b:
+		return 0
+	else:
+		return term(a) + sum2(term, next(a), next, b)
+
+def inc(n):
+	return n+1
+
+def identity(x):
+	return x
+
+def cube(x):
+	return x * x * x
+
+def sum_integers(a, b):
+	return sum2(identity, a, inc, b)
+
+def sum_cubes(a, b):
+	return sum2(cube, a, inc, b)
+
+def pi_sum(a, b):
+	def pi_term(x):
+		return 1.0 / (x * (x + 2))
+	
+	def pi_next(x):
+		return x + 4	
+		
+	return sum2(pi_term, a, pi_next, b)
+	
+	#if b <= 0:
+	#	return 0
+	#else:
+	#	return fractions.Fraction(1, a*(a+2)) + pi_sum(a+4, b-1)
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")

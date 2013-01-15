@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+import fractions
 
 from chapter1 import *;
 
@@ -86,6 +87,21 @@ class TestChapter1(unittest.TestCase):
 		self.assertEqual(False, is_prime_fast(0, times))
 		self.assertEqual(False, is_prime_fast(-1, times))
 		#self.assertEqual(True, is_prime_fast(2**10, times)) #Maximum recursion.
+
+	def test_cube(self):
+		self.assertEqual(27, cube(3))
+
+	def test_sum_integers(self):
+		self.assertEqual(55, sum_integers(1, 10))
+
+	def test_sum_cubes(self):
+		self.assertEqual(3025, sum_cubes(1, 10))
+
+	def test_pi_sum(self):
+		self.assertEqual(fractions.Fraction(1289, 3465), pi_sum(1, 3))
+
+	def test_inc(self):
+		self.assertEqual(10, inc(9))
 
 if __name__ == '__main__':
 	print(__file__)
