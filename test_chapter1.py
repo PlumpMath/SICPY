@@ -103,6 +103,9 @@ class TestChapter1(unittest.TestCase):
 	def test_inc(self):
 		self.assertEqual(10, inc(9))
 
+	def test_integral(self):
+		self.assertEqual(0.24998750000000042, integral(cube, 0, 1, 0.01))
+
 if __name__ == '__main__':
 	print(__file__)
 	unittest.main()

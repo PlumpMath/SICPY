@@ -198,18 +198,20 @@ def sum_cubes(a, b):
 	return sum2(cube, a, inc, b)
 
 def pi_sum(a, b):
-	def pi_term(x):
-		return 1.0 / (x * (x + 2))
+	#Not work.Misprint?
+	#def pi_term(x):
+	#	return 1.0 / (x * (x + 2))
+	#def pi_next(x):
+	#	return x + 4	
+	#return sum2(pi_term, a, pi_next, b)
 	
-	def pi_next(x):
-		return x + 4	
-		
-	return sum2(pi_term, a, pi_next, b)
-	
-	#if b <= 0:
-	#	return 0
-	#else:
-	#	return fractions.Fraction(1, a*(a+2)) + pi_sum(a+4, b-1)
+	if b <= 0:
+		return 0
+	else:
+		return fractions.Fraction(1, a*(a+2)) + pi_sum(a+4, b-1)
+
+def integral(f, a, b, dx):
+	return sum2(f, a+dx/2, lambda x: x+dx, b) * dx
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")
