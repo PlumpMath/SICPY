@@ -36,12 +36,12 @@ def gte(x, y):
 def lte(x, y):
 	return not2(x > y)
 
-def sqrt(x):
+def average(x, y):
+	return (x+y)/2
+		
+def sqrt_v0(x):
 	def good_enough(guess):
 		return abs2(square(guess)-x) < 0.001
-
-	def average(x, y):
-		return (x+y)/2
 
 	def improve(guess):
 		return average(guess, x/guess)
@@ -63,12 +63,10 @@ def fractorial(n):
 
 	return fact_iter(1, 1, n)		
 	
-	'''
-	if n == 1:
-		return 1
-	else:
-		return n*fractorial(n-1)
-	'''
+	#if n == 1:
+	#	return 1
+	#else:
+	#	return n*fractorial(n-1)
 	
 def fib(n):
 	def fib_iter(a, b, count):
@@ -176,11 +174,11 @@ def is_prime_fast(n, times):
 	else:
 		return False
 
-def sum2(term, a, next, b):
+def sum2(term, a, nextf, b):
 	if a > b:
 		return 0
 	else:
-		return term(a) + sum2(term, next(a), next, b)
+		return term(a) + sum2(term, nextf(a), nextf, b)
 
 def inc(n):
 	return n+1
@@ -198,7 +196,7 @@ def sum_cubes(a, b):
 	return sum2(cube, a, inc, b)
 
 def pi_sum(a, b):
-	#Not work.Misprint?
+	#Not work. If misprint?
 	#def pi_term(x):
 	#	return 1.0 / (x * (x + 2))
 	#def pi_next(x):
@@ -212,6 +210,57 @@ def pi_sum(a, b):
 
 def integral(f, a, b, dx):
 	return sum2(f, a+dx/2, lambda x: x+dx, b) * dx
+
+def is_close_enough(x, y):
+	return abs(x-y) < 0.001
+	
+def is_positive(x):
+	return 0 < x
+
+def is_negative(x):
+	return x < 0
+	
+def search(f, neg_point, pos_point):
+	midpoint = average(neg_point, pos_point)
+	if is_close_enough(neg_point, pos_point):
+		return midpoint
+	else:
+		test_value = f(midpoint)
+		if is_positive(test_value):
+			return search(f, neg_point, midpoint)
+		elif is_negative(test_value):
+			return search(f, midpoint, pos_point)
+		else:
+			return midpoint
+
+def half_interval_method(f, a, b):
+	a_value = f(a)
+	b_value = f(b)
+	
+	if and2(is_negative(a_value), is_positive(b_value)):
+		return search(f, a, b)
+	elif and2(is_negative(b_value), is_positive(a_value)):
+		return search(f, b, a)
+	else:
+		raise ValueError("Values are not of opposite sign")
+
+def fixed_point(f, first_guess):
+	TOLERANCE = 0.00001
+	
+	def is_close_enough(v1, v2):
+		return abs(v1 - v2) < TOLERANCE
+	
+	def tryf(guess):
+		next_value = f(guess)
+		if is_close_enough(guess, next_value):
+			return next_value
+		else:
+			return tryf(next_value)
+
+	return tryf(first_guess)
+
+def sqrt(x):
+	return fixed_point(lambda y: average(y, x/y), 1.0)
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")

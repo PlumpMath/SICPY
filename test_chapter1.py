@@ -3,6 +3,7 @@
 
 import unittest
 import fractions
+import math
 
 from chapter1 import *;
 
@@ -46,7 +47,8 @@ class TestChapter1(unittest.TestCase):
 		self.assertEqual(True, lte(1, 1))
 
 	def test_sqrt(self):
-		self.assertEqual(3.00009155413138, sqrt(9))
+		#self.assertEqual(3.00009155413138, sqrt(9))
+		self.assertEqual(3.0, sqrt(9))
 	
 	def test_fractorial(self):
 		self.assertEqual(720, fractorial(6))
@@ -105,6 +107,18 @@ class TestChapter1(unittest.TestCase):
 
 	def test_integral(self):
 		self.assertEqual(0.24998750000000042, integral(cube, 0, 1, 0.01))
+
+	def test_half_interval_method(self):
+		self.assertEqual(3.14111328125, half_interval_method(math.sin, 2.0, 4.0))
+		testf = lambda x: x**3-2*x-3
+		self.assertEqual(1.89306640625, half_interval_method(testf, 1.0, 2.0))
+
+	def test_fixed_point(self):
+		#an error
+		#self.assertEqual(0.7390822985224023, fixed_point(math.cos, 1.0))
+		self.assertEqual(0.7390822985224024, fixed_point(math.cos, 1.0))
+		testf = lambda y: math.sin(y)+math.cos(y)
+		self.assertEqual(1.2587315962971173, fixed_point(testf, 1.0))
 
 if __name__ == '__main__':
 	print(__file__)
