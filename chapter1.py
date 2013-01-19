@@ -259,8 +259,14 @@ def fixed_point(f, first_guess):
 
 	return tryf(first_guess)
 
-def sqrt(x):
+def sqrt_v1(x):
 	return fixed_point(lambda y: average(y, x/y), 1.0)
+
+def average_damp(f):
+	return lambda x: average(x, f(x))
+
+def sqrt(x):
+	return fixed_point(average_damp(lambda y: average(y, x/y)), 1.0)
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")

@@ -120,6 +120,10 @@ class TestChapter1(unittest.TestCase):
 		testf = lambda y: math.sin(y)+math.cos(y)
 		self.assertEqual(1.2587315962971173, fixed_point(testf, 1.0))
 
+	def test_average_damp(self):
+		func = average_damp(square)
+		self.assertEqual(55, func(10))
+
 if __name__ == '__main__':
 	print(__file__)
 	unittest.main()
