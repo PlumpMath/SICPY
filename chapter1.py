@@ -394,11 +394,54 @@ def average_damp(f):
 	'''
 	return lambda x: average(x, f(x))
 
-def sqrt(x):
+def sqrt_v2(x):
 	'''
 	P.41
 	'''
 	return fixed_point(average_damp(lambda y: average(y, x/y)), 1.0)
+
+def deriv(g):
+	'''
+	P.42
+	'''
+	dx = 0.00001
+	return lambda x: (g(x+dx) - g(x)) / dx
+
+def newton_transform(g):
+	'''
+	P.42
+	'''
+	return lambda x: x - (g(x) / deriv(g)(x))
+
+def newtons_method(g, guess):
+	'''
+	P.42
+	'''
+	return fixed_point(newton_transform(g), guess)
+
+def sqrt_v3(x):
+	'''
+	P.42
+	'''
+	return newtons_method(lambda y: square(y) - x, 1.0)
+
+def fixed_point_of_transform(g, transform, guess):
+	'''
+	P.42
+	'''
+	return fixed_point(transform(g), guess)
+
+def sqrt_v4(x):
+	'''
+	P.43
+	'''
+	return fixed_point_of_transform(lambda y: x/y, average_damp, 1.0)
+
+def sqrt(x):
+	'''
+	P.43
+	'''
+	return fixed_point_of_transform(lambda y: square(y)-x, newton_transform, 1.0)
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")

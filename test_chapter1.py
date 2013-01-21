@@ -5,11 +5,11 @@ import unittest
 import fractions
 import math
 
-from chapter1 import *;
+from chapter1 import *
 
 class TestChapter1(unittest.TestCase):
 	'''
-	Test class for SICP chapter1 emulate functions.
+	Test class for SICP chapter 1 emulate functions.
 	'''
 	def test_square(self):
 		res = square(21)
@@ -48,7 +48,7 @@ class TestChapter1(unittest.TestCase):
 
 	def test_sqrt(self):
 		#self.assertEqual(3.00009155413138, sqrt(9))
-		self.assertEqual(3.0, sqrt(9))
+		self.assertEqual(3.000, round(sqrt(9),3))
 	
 	def test_fractorial(self):
 		self.assertEqual(720, fractorial(6))
@@ -123,6 +123,10 @@ class TestChapter1(unittest.TestCase):
 	def test_average_damp(self):
 		func = average_damp(square)
 		self.assertEqual(55, func(10))
+		
+	def test_deriv(self):
+		func = deriv(cube)
+		self.assertEqual(75.00014999664018, func(5))
 
 if __name__ == '__main__':
 	print(__file__)
