@@ -73,5 +73,39 @@ def print_rat(x):
 	'''
 	print(str(numer(x))+"/"+str(denom(x)))
 
+def cons(x, y):
+	def dispatch(m):
+		if m == 0: return x
+		elif m == 1: return y
+		else: raise ValueError("Argument not 0 or 1 --- CONS"+str(m))
+	
+	return dispatch
+	
+def list2(*elements):
+	size = len(elements)
+	
+	if size == 0:
+		return None
+	elif size == 1:
+		return cons(elements[0], None)
+	
+	res = cons(elements[0], elements[1])
+	
+	i = 2
+	while i < size:
+		res = cons(car(res), cons(cdr(res), elements[i]))
+		i += 1
+		
+	return res
+
+def car(z):
+	return z(0)
+
+def cdr(z):
+	return z(1)
+	
+def list_ref(items, n):
+	pass
+
 if __name__ == '__main__':
 	print(__file__+" is loaded.")
