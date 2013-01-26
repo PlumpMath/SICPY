@@ -74,38 +74,50 @@ def print_rat(x):
 	print(str(numer(x))+"/"+str(denom(x)))
 
 def cons(x, y):
-	def dispatch(m):
-		if m == 0: return x
-		elif m == 1: return y
-		else: raise ValueError("Argument not 0 or 1 --- CONS"+str(m))
+	return [x, y]
 	
-	return dispatch
+	#def dispatch(m):
+	#	if m == 0: return x
+	#	elif m == 1: return y
+	#	#elif m == 1: return cons(y, None)
+	#	else: raise ValueError("Argument not 0 or 1 --- CONS"+str(m))
+	
+	#return dispatch
 	
 def list2(*elements):
-	size = len(elements)
+	return elements
 	
-	if size == 0:
-		return None
-	elif size == 1:
-		return cons(elements[0], None)
-	
-	res = cons(elements[0], elements[1])
-	
-	i = 2
-	while i < size:
-		res = cons(car(res), cons(cdr(res), elements[i]))
-		i += 1
-		
-	return res
+	#TODO: Not work...
+	#def inner(lst, i):
+	#	try:
+	#		return cons(car(lst), inner(cons(elements[i], elements[i+1]), i+1))
+	#	except IndexError as ex:
+	#		return lst
+
+	#return inner(cons(elements[0], elements[1]), 1)			
 
 def car(z):
-	return z(0)
+	return z[0]
+	
+	#return z(0)
 
 def cdr(z):
-	return z(1)
+	ele = z[1:]
+	if len(ele) <= 1:
+		return ele[0]
+	else:
+		return ele
+		
+	#return z(1)
 	
 def list_ref(items, n):
-	pass
+	#return items[n]
+	
+	#TODO: implement.
+	if n == 0:
+		return car(items)
+	else:
+		return list_ref(cdr(items), n-1)
 
 if __name__ == '__main__':
 	print(__file__+" is loaded.")

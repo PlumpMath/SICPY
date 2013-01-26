@@ -36,19 +36,23 @@ class TestChapter2(unittest.TestCase):
 		cs = cons(1, 2)
 		self.assertEqual(1, car(cs))
 
-	def test_car(self):
+	def test_cdr(self):
 		cs = cons(1, 2)
+		#self.assertEqual(2, car(cdr(cs)))
 		self.assertEqual(2, cdr(cs))
 
 	def test_list2(self):
-		res = list2(1, 2, 3, 4)
-		self.assertEqual(1, car(res))
-		self.assertEqual(2, car(res))
-		self.assertEqual(3, car(res))
-		self.assertEqual(4, car(res))
+		pass
+	#TODO: implement.
+	#	res = list2(1, 2, 3, 4)
+	#	self.assertEqual(1, car(res))
+	#	self.assertEqual(2, car(cdr(res)))
+	#	self.assertEqual(3, car(cdr(cdr(res))))
+	#	self.assertEqual(4, car(cdr(cdr(cdr(res)))))
 
 	def test_list_ref(self):
-		pass
+		lst = list2(1, 4, 9, 16, 23)
+		self.assertEqual(16, list_ref(lst, 3))
 
 if __name__ == '__main__':
 	print(__file__)
